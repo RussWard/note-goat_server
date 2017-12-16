@@ -1,7 +1,14 @@
-//const db = require('../dbConfig.js');
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const bcrtpt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt-nodejs');
+
+const flashcardSchema = new Schema({
+  word: String,
+  type: String,
+  def: String,
+  tags: []
+})
 
 const userSchema = new Schema({
   email: {
@@ -9,7 +16,8 @@ const userSchema = new Schema({
     unique: true,
     lowercase: true 
   },
-  password: String
+  password: String, 
+  flashcards: [flashcardSchema]
 });
 
 userSchema.pre('save', function(cb) {
