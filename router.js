@@ -12,6 +12,10 @@ router.get('/api/protected', requireAuth, (req, res) => {
   console.log('USER ========> ', req.user)
   res.send({ message: 'protected shit' });
 });
+router.post('/api/insert_flashcard', requireAuth, controllers.flashcard.insert);
+router.post('/api/delete_one', requireAuth, controllers.flashcard.deleteOne);
+router.get('/api/get_all', requireAuth, controllers.flashcard.getAll);
+
 //auth routes
 router.post('/api/signin', requireSignin, controllers.auth.signin);
 router.post('/api/signup', controllers.auth.signup);

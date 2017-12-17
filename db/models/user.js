@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
-const flashcard = require('./flashcard');
+const flashcardSchema = require('./flashcard');
 
 const userSchema = new Schema({
   email: {
@@ -13,7 +13,7 @@ const userSchema = new Schema({
     lowercase: true 
   },
   password: { type: String, required: true },
-  flashcards: [flashcard]
+  flashcards: [flashcardSchema]
 });
 
 userSchema.pre('save', function(cb) {

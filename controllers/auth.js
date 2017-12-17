@@ -38,7 +38,7 @@ module.exports.signup = (req, res, next) => {
 
 module.exports.deleteUser = function(req, res) {
   //this is a protected route, therefore we have a verified user on the req
-  req.user.remove(this, function(err) {
+  req.user.remove(function(err) {
     if (err) { 
       res.status(500).send({ error: 'failed to delete account' }) 
     }
