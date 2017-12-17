@@ -2,6 +2,7 @@ require('dotenv').config();
 const jwt = require('jwt-simple');
 const User = require('../db/models').User;
 
+
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
   return jwt.encode({ sub: user.id, iat: timestamp }, process.env.TOKEN_SECRET)
@@ -33,4 +34,14 @@ module.exports.signup = (req, res, next) => {
       res.send({ token: tokenForUser(user) });
     });
   });
+};
+
+module.exports.deleteUser = function(req, res) {
+  //this is a protected route, therefore we have a verified user on the req
+  req.user.remove(this, function(err) {
+    if (err) { 
+      res.status(500).send({ error: 'failed to delete account' }) 
+    }
+    res.send( { message: 'user account removed' })
+  }) 
 };
