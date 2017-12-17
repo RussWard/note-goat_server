@@ -1,23 +1,19 @@
 
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
-
-const flashcardSchema = new Schema({
-  word: String,
-  type: String,
-  def: String,
-  tags: []
-})
+const flashcard = require('./flashcard');
 
 const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
+    required: true,
     lowercase: true 
   },
-  password: String, 
-  flashcards: [flashcardSchema]
+  password: { type: String, required: true },
+  flashcards: [flashcard]
 });
 
 userSchema.pre('save', function(cb) {
