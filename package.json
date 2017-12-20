@@ -11,6 +11,7 @@
   "author": "Russ Ward",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "bcrypt-nodejs": "0.0.3",
     "chai": "^4.1.2",
     "cors": "^2.8.4",

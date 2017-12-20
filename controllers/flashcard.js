@@ -27,10 +27,16 @@ module.exports.getAll = (req, res) => {
 
 module.exports.deleteOne = (req, res) => {
   req.user.flashcards.id(req.body.id).remove()
-  req.user.save((err) => {
-    if (err) {
+    .then(() => {
+      req.user.save()
+      .then(() => {
+        res.status(200).send({ message: 'flashcard deleted' });
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      })
+    })
+    .catch((err) => {
       res.status(500).send(err);
-    }
-    res.status(200).send({ message: 'flashcard deleted' });
-  })
+    })
 };
