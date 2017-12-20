@@ -9,7 +9,6 @@ const requireSignin = passport.authenticate('local', { session: false });
 
 //protected resource routes
 router.get('/api/protected', requireAuth, (req, res) => {
-  console.log('USER ========> ', req.user)
   res.send({ message: 'protected shit' });
 });
 router.post('/api/insert_flashcard', requireAuth, controllers.flashcard.insert);

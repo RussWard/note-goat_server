@@ -13,10 +13,16 @@ module.exports = (req, res) => {
     } else {
       let defs = data.results[0].lexicalEntries[0].entries[0].senses || [];
       data.defArray = defs.map(sense=> {
+        let definition;
+        if (sense.definitions) {
+          definition = sense.definitions[0]
+        } else if (data.results[0].lexicalEntries[0].entries[0].etymologies[0]) {
+          definition = data.results[0].lexicalEntries[0].entries[0].etymologies[0];
+        }
         if (sense) {
           return {
             word: req.query.word,
-            definition: sense.definitions[0],
+            definition: definition,
             id: sense.id,
           };
         }
