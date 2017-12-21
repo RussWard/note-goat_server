@@ -2,7 +2,9 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const dburl = process.env.MONGODB_URI;
 
-mongoose.connect(dburl);
+mongoose.connect(dburl, {
+  useMongoClient: true
+});
 
 const gracefulShutdown = function(msg, cb) {
   mongoose.connection.close(() => {

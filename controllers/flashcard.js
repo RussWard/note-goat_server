@@ -26,17 +26,14 @@ module.exports.getAll = (req, res) => {
 };
 
 module.exports.deleteOne = (req, res) => {
-  req.user.flashcards.id(req.body.id).remove()
-    .then(() => {
-      req.user.save()
-      .then(() => {
-        res.status(200).send({ message: 'flashcard deleted' });
-      })
-      .catch(err => {
-        res.status(500).send(err);
-      })
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    })
+  User.findOneAndUpdate(
+    { _id: req.user.id }, 
+    { $pull: { flashcards: { _id: req.body.id } }
+  })
+  .then(() => {
+    res.status(200).send({ message: 'flashcard deleted' });
+  })
+  .catch((err) => {
+    res.status(500).send(err);
+  })
 };
