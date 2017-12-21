@@ -40,14 +40,14 @@ userSchema.pre('save', function(cb) {
     })
 });
 
-userSchema.methods.comparePassword = function(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password)
-    .then((result) => {
-      cb(null, result);
-    })
-    .catch((err) => {
-      cb(err);
-    })
+userSchema.methods.comparePassword = function(candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password)
+    // .then((result) => {
+    //   return cb(null, result);
+    // })
+    // .catch((err) => {
+    //   return cb(err);
+    // })
 };
 
 module.exports = mongoose.model('user', userSchema);
