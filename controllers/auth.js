@@ -8,11 +8,11 @@ function tokenForUser(user) {
   return jwt.encode({ sub: user.id, iat: timestamp }, process.env.TOKEN_SECRET);
 };
 
-module.exports.signin = (req, res, next) => {
+module.exports.signin = (req, res, next) => {  
   if (req.user) {
     res.status(200).send({ token: tokenForUser(req.user) });
   } else {
-    res.status(500).send(req.err);
+    res.status(500).send({ error: 'Login failed, please check email & password'});
   }
 };
 
